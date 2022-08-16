@@ -1,5 +1,4 @@
-import { styled } from "@mui/material";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 export const StyledSearchIcon = styled(SearchIcon)({

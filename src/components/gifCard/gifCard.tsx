@@ -1,5 +1,5 @@
-import { Card, CardMedia, Grid } from "@mui/material";
-
+import { CardMedia, Grid, CardContent, Typography } from "@mui/material";
+import { StyledCard } from "./gifCard.style";
 const gifCard = ({
   item,
 }: {
@@ -10,14 +10,17 @@ const gifCard = ({
 }) => {
   return (
     <Grid item>
-      <Card sx={{ width: "200px", height: "200px" }}>
+      <StyledCard>
         <CardMedia
           component="img"
           height="280"
           image={item.images.original.url}
           alt={item.title}
         />
-      </Card>
+        <CardContent>
+          <Typography></Typography>
+        </CardContent>
+      </StyledCard>
     </Grid>
   );
 };

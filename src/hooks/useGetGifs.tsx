@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+export type GifFields =
+  | {
+      data: [
+        {
+          title: string;
+          images: {
+            original: { url: string };
+          };
+        }
+      ];
+      meta: object;
+      pagination: object;
+    }
+  | undefined;
+
 export const useGetGifs = () => {
-  const [gifs, setGifs] = useState<
-    | {
-        data: [
-          {
-            title: string;
-            images: {
-              original: { url: string };
-            };
-          }
-        ];
-        meta: object;
-        pagination: object;
-      }
-    | undefined
-  >();
+  const [gifs, setGifs] = useState<GifFields>();
 
   useEffect(() => {
     const getGifs = async () => {
