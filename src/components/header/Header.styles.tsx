@@ -5,6 +5,5 @@ export const StyledHeader = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  border: "solid 1px pink",
   height: "7em",
 });
