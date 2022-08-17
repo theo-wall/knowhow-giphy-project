@@ -1,20 +1,29 @@
 import { useGetGifs } from "../../hooks/useGetGifs";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { actions } from "../../app/userSlice";
+import { RootProps } from "../../app/userSlice";
 import { Box, Grid } from "@mui/material";
-import GifCard from "../gifCard/gifCard";
+import GifCard from "../gifCard/GifCard";
 
 const GifDisplay = () => {
-  const user = useAppSelector((state) => state);
+  const user: RootProps = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   console.log("user", user);
 
   const { gifs } = useGetGifs();
-  //   console.log(gifs);
 
   const handleFavorite = (link: string) => {
-    dispatch(actions.addFavorite([link]));
-    // console.log("link", link);
+    if (user.favorites.includes(link)) {
+      dispatch(
+        actions.removeFavorite(
+          user.favorites.filter((fav: string) => {
+            return fav !== link;
+          })
+        )
+      );
+    } else {
+      dispatch(actions.addFavorite(link));
+    }
   };
 
   return (
@@ -28,7 +37,12 @@ const GifDisplay = () => {
       >
         {gifs?.data.map((item, index) => {
           return (
-            <GifCard item={item} key={index} handleFavorite={handleFavorite} />
+            <GifCard
+              item={item}
+              key={index}
+              handleFavorite={handleFavorite}
+              user={user}
+            />
           );
         })}
       </Grid>

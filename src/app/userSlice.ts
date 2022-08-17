@@ -14,8 +14,11 @@ const userSlice = createSlice({
     offSet: 0,
   },
   reducers: {
-    addFavorite: (state, action: PayloadAction<string[]>) => {
-      state.favorites = [...state.favorites, ...action.payload];
+    addFavorite: (state, action: PayloadAction<string>) => {
+      state.favorites = [...state.favorites, action.payload];
+    },
+    removeFavorite: (state, action: PayloadAction<string[]>) => {
+      state.favorites = action.payload;
     },
   },
 });

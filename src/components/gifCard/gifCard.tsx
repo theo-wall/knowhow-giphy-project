@@ -1,5 +1,8 @@
-import { CardMedia, Grid, Box } from "@mui/material";
-import { StyledCard, StyledTypo } from "./gifCard.style";
+import { CardMedia, CardHeader, Grid, Box, IconButton } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { StyledCard, StyledTypo } from "./GifCard.style";
+import { useEffect, useState } from "react";
+import { RootProps } from "../../app/userSlice";
 
 export type CardProps = {
   item: {
@@ -10,21 +13,49 @@ export type CardProps = {
     };
   };
   handleFavorite: (link: string) => void;
+  user: RootProps;
 };
 
-const gifCard = ({ item, handleFavorite }: CardProps) => {
-  // console.log("item.user.username", item?.user?.username);
+const GifCard = ({ item, handleFavorite, user }: CardProps) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (user.favorites.includes(item.images.original.url)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [user.favorites]);
+
   return (
     <Grid item>
       <StyledCard>
+        <CardHeader
+          action={
+            <IconButton
+              aria-label="favorite"
+              onClick={() => {
+                handleFavorite(item.images.original.url);
+              }}
+            >
+              <FavoriteIcon
+                sx={{
+                  paddingRight: 1,
+                  color: isFavorite
+                    ? "rgb(255, 0, 0, 0.5)"
+                    : "rgb(100, 100, 100, 0.5)",
+                }}
+              />
+            </IconButton>
+          }
+          sx={{ height: 0, padding: 0 }}
+        />
+
         <CardMedia
           component="img"
           height="280"
           image={item.images.original.url}
           alt={item.title}
-          onClick={() => {
-            handleFavorite(item.images.original.url);
-          }}
         />
       </StyledCard>
       <Box>
@@ -37,4 +68,4 @@ const gifCard = ({ item, handleFavorite }: CardProps) => {
   );
 };
 
-export default gifCard;
+export default GifCard;
