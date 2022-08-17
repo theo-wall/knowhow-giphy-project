@@ -19,7 +19,7 @@ const GifCard = ({ item, handleFavorite, user }: CardProps) => {
     } else {
       setIsFavorite(false);
     }
-  }, [user.favorites]);
+  }, [user.favorites, item]);
 
   return (
     <Grid item>
