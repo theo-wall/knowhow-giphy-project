@@ -18,7 +18,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     favorites: new Array(),
-    limit: 10,
+    limit: 12,
     offSet: 0,
   },
   reducers: {
