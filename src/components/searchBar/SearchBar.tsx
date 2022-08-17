@@ -6,7 +6,7 @@ const SearchBar = () => {
     <>
       <Stack spacing={2} direction="row">
         <StyledTextField
-          id="input-with-icon-textfield"
+          id="input-for-search"
           placeholder="Search GIFs"
           InputProps={{
             startAdornment: (

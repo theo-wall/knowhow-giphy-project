@@ -9,6 +9,9 @@ export type GifFields =
           images: {
             original: { url: string };
           };
+          user: {
+            username: string;
+          };
         }
       ];
       meta: object;
@@ -22,7 +25,7 @@ export const useGetGifs = () => {
   useEffect(() => {
     const getGifs = async () => {
       const response = await axios.get(
-        "https://api.giphy.com/v1/gifs/trending?api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&limit=20&rating=g&offset=0"
+        "https://api.giphy.com/v1/gifs/trending?api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&limit=12&rating=g&offset=0"
       );
       if (response.status === 200) {
         setGifs(response.data);

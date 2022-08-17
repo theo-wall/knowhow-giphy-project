@@ -1,13 +1,18 @@
-import { CardMedia, Grid, CardContent, Typography } from "@mui/material";
-import { StyledCard } from "./gifCard.style";
-const gifCard = ({
-  item,
-}: {
+import { CardMedia, Grid, Box } from "@mui/material";
+import { StyledCard, StyledTypo } from "./gifCard.style";
+
+export type CardProps = {
   item: {
     title: string;
     images: { original: { url: string } };
+    user: {
+      username: string;
+    };
   };
-}) => {
+};
+
+const gifCard = ({ item }: CardProps) => {
+  // console.log("item.user.username", item?.user?.username);
   return (
     <Grid item>
       <StyledCard>
@@ -17,10 +22,13 @@ const gifCard = ({
           image={item.images.original.url}
           alt={item.title}
         />
-        <CardContent>
-          <Typography></Typography>
-        </CardContent>
       </StyledCard>
+      <Box>
+        <StyledTypo variant="subtitle2">{item.title}</StyledTypo>
+        <StyledTypo variant="subtitle2">
+          {item?.user?.username ? item?.user?.username : "no username"}
+        </StyledTypo>
+      </Box>
     </Grid>
   );
 };

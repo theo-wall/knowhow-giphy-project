@@ -13,7 +13,7 @@ const GifDisplay = () => {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        spacing={4}
+        spacing={3}
       >
         {gifs?.data.map((item, index) => {
           return <GifCard item={item} key={index} />;
