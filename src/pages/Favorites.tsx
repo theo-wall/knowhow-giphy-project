@@ -4,7 +4,7 @@ import Header from "../components/header/Header";
 const Favorites = () => {
   return (
     <>
-      <Header />
+      <Header inFavorites={true} />
       <GifDisplay inFavorites={true} />
     </>
   );

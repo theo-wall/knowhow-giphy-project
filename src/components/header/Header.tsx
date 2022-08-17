@@ -1,10 +1,11 @@
 import { StyledHeader } from "./Header.styles";
 import SearchBar from "../searchBar/SearchBar";
+import FavoritesHeader from "./FavoritesHeader";
 
-const Header = () => {
+const Header = ({ inFavorites }: { inFavorites: boolean }) => {
   return (
     <StyledHeader>
-      <SearchBar />
+      {inFavorites ? <FavoritesHeader /> : <SearchBar />}
     </StyledHeader>
   );
 };
