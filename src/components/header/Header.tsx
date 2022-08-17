@@ -1,11 +1,11 @@
 import { StyledHeader } from "./Header.styles";
 import SearchBar from "../searchBar/SearchBar";
-import FavoritesHeader from "./FavoritesHeader";
+import { SearchProps } from "../../pages/Home";
 
-const Header = ({ inFavorites }: { inFavorites: boolean }) => {
+const Header = ({ handleSearch }: SearchProps) => {
   return (
     <StyledHeader>
-      {inFavorites ? <FavoritesHeader /> : <SearchBar />}
+      <SearchBar handleSearch={handleSearch} />
     </StyledHeader>
   );
 };

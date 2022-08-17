@@ -1,10 +1,10 @@
 import GifDisplay from "../components/gifDisplay/GifDisplay";
-import Header from "../components/header/Header";
+import FavoritesHeader from "../components/header/FavoritesHeader";
 
 const Favorites = () => {
   return (
     <>
-      <Header inFavorites={true} />
+      <FavoritesHeader />
       <GifDisplay inFavorites={true} />
     </>
   );

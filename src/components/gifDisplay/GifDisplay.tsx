@@ -5,12 +5,18 @@ import { RootProps } from "../../app/userSlice";
 import { Box, Grid } from "@mui/material";
 import GifCard from "../gifCard/GifCard";
 
-const GifDisplay = ({ inFavorites }: { inFavorites: boolean }) => {
+const GifDisplay = ({
+  inFavorites,
+  searchTerms,
+}: {
+  inFavorites: boolean;
+  searchTerms?: string;
+}) => {
   const user: RootProps = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   console.log("user", user);
 
-  const { gifs } = useGetGifs(inFavorites);
+  const { gifs } = useGetGifs({ inFavorites, searchTerms });
 
   const handleFavorite = (favItem: Favorites) => {
     if (user.favorites.map((gif: Favorites) => gif.url).includes(favItem.url)) {
