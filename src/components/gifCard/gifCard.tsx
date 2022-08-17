@@ -1,20 +1,26 @@
-import { CardMedia, CardHeader, Grid, Box, IconButton } from "@mui/material";
+import { CardMedia, Grid, Box, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { StyledCard, StyledTypo } from "./GifCard.style";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { StyledCard, StyledCardHeader, StyledTypo } from "./GifCard.style";
 import { useEffect, useState } from "react";
 import { Favorites, RootProps } from "../../app/userSlice";
 
 export type CardProps = {
   item: Favorites;
+  inFavorites?: boolean;
   handleFavorite: (favItem: Favorites) => void;
   user: RootProps;
 };
 
-const GifCard = ({ item, handleFavorite, user }: CardProps) => {
+const GifCard = ({ item, handleFavorite, user, inFavorites }: CardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (user.favorites.map((gif: Favorites) => gif.url).includes(item.url)) {
+    if (
+      user.favorites
+        .map((gif: Favorites) => gif.image_url)
+        .includes(item.image_url)
+    ) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
@@ -24,7 +30,7 @@ const GifCard = ({ item, handleFavorite, user }: CardProps) => {
   return (
     <Grid item>
       <StyledCard>
-        <CardHeader
+        <StyledCardHeader
           action={
             <IconButton
               aria-label="favorite"
@@ -32,24 +38,34 @@ const GifCard = ({ item, handleFavorite, user }: CardProps) => {
                 handleFavorite(item);
               }}
             >
-              <FavoriteIcon
-                sx={{
-                  paddingRight: 1,
-                  color: isFavorite
-                    ? "rgb(255, 0, 0, 0.5)"
-                    : "rgb(100, 100, 100, 0.5)",
-                }}
-              />
+              {inFavorites ? (
+                <DeleteIcon
+                  sx={{
+                    paddingRight: 1,
+                    color: "lightGray",
+                  }}
+                />
+              ) : (
+                <FavoriteIcon
+                  sx={{
+                    paddingRight: 1,
+                    color: isFavorite ? "red" : "lightGray",
+                  }}
+                />
+              )}
             </IconButton>
           }
-          sx={{ height: 0, padding: 0 }}
         />
 
         <CardMedia
           component="img"
           height="280"
-          image={item.url}
+          image={item.image_url}
           alt={item.title}
+          onClick={() => {
+            window.open(item.site_url);
+          }}
+          sx={{ "&:hover": { cursor: "pointer" } }}
         />
       </StyledCard>
       <Box>

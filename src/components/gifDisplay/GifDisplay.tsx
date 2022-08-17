@@ -14,16 +14,20 @@ const GifDisplay = ({
 }) => {
   const user: RootProps = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
-  console.log("user", user);
 
   const { gifs } = useGetGifs({ inFavorites, searchTerms });
+  console.log("user", user);
 
   const handleFavorite = (favItem: Favorites) => {
-    if (user.favorites.map((gif: Favorites) => gif.url).includes(favItem.url)) {
+    if (
+      user.favorites
+        .map((gif: Favorites) => gif.image_url)
+        .includes(favItem.image_url)
+    ) {
       dispatch(
         actions.removeFavorite(
           user.favorites.filter((userFav) => {
-            return userFav.url !== favItem.url;
+            return userFav.image_url !== favItem.image_url;
           })
         )
       );
@@ -47,6 +51,7 @@ const GifDisplay = ({
                 <GifCard
                   item={item}
                   key={index}
+                  inFavorites={inFavorites}
                   handleFavorite={handleFavorite}
                   user={user}
                 />

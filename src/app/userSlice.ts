@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type Favorites = {
+  url: any;
   username: any;
   images: any;
-  url: string;
+  image_url: string;
+  site_url: string;
   title: string;
   userName: string;
 };
