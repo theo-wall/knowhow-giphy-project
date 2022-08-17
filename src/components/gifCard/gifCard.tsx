@@ -2,17 +2,11 @@ import { CardMedia, CardHeader, Grid, Box, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { StyledCard, StyledTypo } from "./GifCard.style";
 import { useEffect, useState } from "react";
-import { RootProps } from "../../app/userSlice";
+import { Favorites, RootProps } from "../../app/userSlice";
 
 export type CardProps = {
-  item: {
-    title: string;
-    images: { original: { url: string } };
-    user: {
-      username: string;
-    };
-  };
-  handleFavorite: (link: string) => void;
+  item: Favorites;
+  handleFavorite: (favItem: Favorites) => void;
   user: RootProps;
 };
 
@@ -20,7 +14,7 @@ const GifCard = ({ item, handleFavorite, user }: CardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (user.favorites.includes(item.images.original.url)) {
+    if (user.favorites.map((gif: Favorites) => gif.url).includes(item.url)) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
@@ -35,7 +29,7 @@ const GifCard = ({ item, handleFavorite, user }: CardProps) => {
             <IconButton
               aria-label="favorite"
               onClick={() => {
-                handleFavorite(item.images.original.url);
+                handleFavorite(item);
               }}
             >
               <FavoriteIcon
@@ -54,14 +48,14 @@ const GifCard = ({ item, handleFavorite, user }: CardProps) => {
         <CardMedia
           component="img"
           height="280"
-          image={item.images.original.url}
+          image={item.url}
           alt={item.title}
         />
       </StyledCard>
       <Box>
         <StyledTypo variant="subtitle2">{item.title}</StyledTypo>
         <StyledTypo variant="subtitle2">
-          {item?.user?.username ? item?.user?.username : "no username"}
+          {item?.userName ? item?.userName : "no username"}
         </StyledTypo>
       </Box>
     </Grid>

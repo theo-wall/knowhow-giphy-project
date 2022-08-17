@@ -1,5 +1,5 @@
 import { StyledButton, StyledTextField } from "./SearchBar.styles";
-import { InputAdornment, Box, Stack } from "@mui/material";
+import { InputAdornment, Box, Stack, Link } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 const SearchBar = () => {
   return (
@@ -19,6 +19,10 @@ const SearchBar = () => {
         />
         <Box>
           <StyledButton variant="outlined">Search For GIFs</StyledButton>
+        </Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {/* <StyledButton variant="outlined">My Saved GIFs</StyledButton> */}
+          <Link href="/Favorites">My Saved GIFs</Link>
         </Box>
       </Stack>
     </>

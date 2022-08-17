@@ -1,7 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type Favorites = {
+  username: any;
+  images: any;
+  url: string;
+  title: string;
+  userName: string;
+};
+
 export interface RootProps {
-  favorites: string[];
+  favorites: Favorites[];
   limit: number;
   offset: number;
 }
@@ -14,10 +22,10 @@ const userSlice = createSlice({
     offSet: 0,
   },
   reducers: {
-    addFavorite: (state, action: PayloadAction<string>) => {
+    addFavorite: (state, action: PayloadAction<Favorites>) => {
       state.favorites = [...state.favorites, action.payload];
     },
-    removeFavorite: (state, action: PayloadAction<string[]>) => {
+    removeFavorite: (state, action: PayloadAction<Favorites[]>) => {
       state.favorites = action.payload;
     },
   },

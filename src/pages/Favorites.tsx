@@ -1,5 +1,13 @@
+import GifDisplay from "../components/gifDisplay/GifDisplay";
+import Header from "../components/header/Header";
+
 const Favorites = () => {
-  return <div>Search</div>;
+  return (
+    <>
+      <Header />
+      <GifDisplay inFavorites={true} />
+    </>
+  );
 };
 
 export default Favorites;
