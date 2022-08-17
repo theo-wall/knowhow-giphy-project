@@ -9,9 +9,10 @@ export type CardProps = {
       username: string;
     };
   };
+  handleFavorite: (link: string) => void;
 };
 
-const gifCard = ({ item }: CardProps) => {
+const gifCard = ({ item, handleFavorite }: CardProps) => {
   // console.log("item.user.username", item?.user?.username);
   return (
     <Grid item>
@@ -21,6 +22,9 @@ const gifCard = ({ item }: CardProps) => {
           height="280"
           image={item.images.original.url}
           alt={item.title}
+          onClick={() => {
+            handleFavorite(item.images.original.url);
+          }}
         />
       </StyledCard>
       <Box>

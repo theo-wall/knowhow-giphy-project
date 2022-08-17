@@ -1,15 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface RootProps {
+  favorites: string[];
+  limit: number;
+  offset: number;
+}
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    favorites: ["NOFAV"],
+    favorites: new Array(),
     limit: 10,
     offSet: 0,
   },
   reducers: {
     addFavorite: (state, action: PayloadAction<string[]>) => {
-      state.favorites = action.payload;
+      state.favorites = [...state.favorites, ...action.payload];
     },
   },
 });
