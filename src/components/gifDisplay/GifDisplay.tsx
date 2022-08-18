@@ -1,8 +1,7 @@
 import { useGetGifs } from "../../hooks/useGetGifs";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { actions, Favorites } from "../../app/userSlice";
+import { useAppSelector } from "../../app/hooks";
 import { RootProps } from "../../app/userSlice";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import GifCard from "../gifCard/GifCard";
 import {
   ContainerBox,
@@ -11,6 +10,10 @@ import {
   MoreButtonBox,
   StyledBox,
 } from "./GifDisplay.style";
+import { useFavorite } from "../../hooks/useFavorite";
+
+// GifDisplay is used in both the Home Page and Favorites Page, to organize all gifs that are displayed. useGetGifs hook is used here to populate the
+// array of gifs to display, what is returned here is controlled by (inFavorites, searchTerms, randomize, and page) variables.
 
 const GifDisplay = ({
   inFavorites,
@@ -26,7 +29,6 @@ const GifDisplay = ({
   page: number;
 }) => {
   const user: RootProps = useAppSelector((state) => state);
-  const dispatch = useAppDispatch();
 
   const { gifs, loading } = useGetGifs({
     inFavorites,
@@ -35,23 +37,7 @@ const GifDisplay = ({
     page,
   });
 
-  const handleFavorite = (favItem: Favorites) => {
-    if (
-      user.favorites
-        .map((gif: Favorites) => gif.image_url)
-        .includes(favItem.image_url)
-    ) {
-      dispatch(
-        actions.removeFavorite(
-          user.favorites.filter((userFav) => {
-            return userFav.image_url !== favItem.image_url;
-          })
-        )
-      );
-    } else {
-      dispatch(actions.addFavorite(favItem));
-    }
-  };
+  const { handleFavorite } = useFavorite();
 
   return (
     <ContainerBox>
