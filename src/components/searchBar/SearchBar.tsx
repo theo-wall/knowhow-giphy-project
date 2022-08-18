@@ -41,7 +41,6 @@ const SearchBar = ({
         <Box>
           <StyledButton
             variant="outlined"
-            disabled={!searchInput}
             onClick={() => handleSearch(searchInput)}
           >
             Search For GIFs
