@@ -1,10 +1,16 @@
 import GifDisplay from "../components/gifDisplay/GifDisplay";
 import FavoritesHeader from "../components/header/FavoritesHeader";
+import { useSearchFunctions } from "../hooks/useSearchFunctions";
 
 const Favorites = () => {
-  const handlePage = () => {
-    console.log("hi");
-  };
+  const {
+    searchTerms,
+    randomize,
+    page,
+    handleSearch,
+    handleRandomize,
+    handlePage,
+  } = useSearchFunctions();
   return (
     <>
       <FavoritesHeader />

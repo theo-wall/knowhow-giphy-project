@@ -28,7 +28,6 @@ const GifDisplay = ({
     randomize,
     page,
   });
-  console.log("user", user);
 
   const handleFavorite = (favItem: Favorites) => {
     if (
@@ -98,21 +97,23 @@ const GifDisplay = ({
             m: 1,
           }}
         >
-          <Button
-            onClick={() => {
-              handlePage();
-            }}
-            sx={{
-              color: "black",
-              border: "1px solid black",
-              "&:hover": {
-                backgroundColor: "lightGray",
+          {inFavorites || (
+            <Button
+              onClick={() => {
+                handlePage();
+              }}
+              sx={{
+                color: "black",
                 border: "1px solid black",
-              },
-            }}
-          >
-            More
-          </Button>
+                "&:hover": {
+                  backgroundColor: "lightGray",
+                  border: "1px solid black",
+                },
+              }}
+            >
+              More
+            </Button>
+          )}
         </Box>
       </StyledBox>
     </ContainerBox>

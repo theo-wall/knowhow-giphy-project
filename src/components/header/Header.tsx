@@ -1,6 +1,5 @@
 import { StyledHeader } from "./Header.styles";
 import SearchBar from "../searchBar/SearchBar";
-import { SearchProps } from "../../pages/Home";
 
 const Header = ({
   handleSearch,

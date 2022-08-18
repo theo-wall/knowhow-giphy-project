@@ -33,7 +33,6 @@ export const useGetGifs = ({
         );
 
         if (response.status === 200) {
-          console.log("response.data", response.data);
           const gifResponse = response.data.data.map(
             (item: {
               images: { original: { url: string } };
