@@ -4,6 +4,7 @@ import { actions, Favorites } from "../../app/userSlice";
 import { RootProps } from "../../app/userSlice";
 import { Box, Grid } from "@mui/material";
 import GifCard from "../gifCard/GifCard";
+import { ContainerBox, StyledBox } from "./GifDisplay.style";
 
 const GifDisplay = ({
   inFavorites,
@@ -39,38 +40,40 @@ const GifDisplay = ({
   };
 
   return (
-    <Box sx={{ ml: 5, mr: 5 }}>
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        spacing={3}
-      >
-        {inFavorites
-          ? user.favorites.map((item, index) => {
-              return (
-                <GifCard
-                  item={item}
-                  key={index}
-                  inFavorites={inFavorites}
-                  handleFavorite={handleFavorite}
-                  user={user}
-                />
-              );
-            })
-          : gifs?.map((item, index) => {
-              return (
-                <GifCard
-                  item={item}
-                  key={index}
-                  handleFavorite={handleFavorite}
-                  user={user}
-                />
-              );
-            })}
-      </Grid>
-    </Box>
+    <ContainerBox>
+      <StyledBox>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={3}
+        >
+          {inFavorites
+            ? user.favorites.map((item, index) => {
+                return (
+                  <GifCard
+                    item={item}
+                    key={index}
+                    inFavorites={inFavorites}
+                    handleFavorite={handleFavorite}
+                    user={user}
+                  />
+                );
+              })
+            : gifs?.map((item, index) => {
+                return (
+                  <GifCard
+                    item={item}
+                    key={index}
+                    handleFavorite={handleFavorite}
+                    user={user}
+                  />
+                );
+              })}
+        </Grid>
+      </StyledBox>
+    </ContainerBox>
   );
 };
 
