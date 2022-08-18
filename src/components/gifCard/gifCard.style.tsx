@@ -1,4 +1,4 @@
-import { styled, Card, Typography, CardHeader, CardMedia } from "@mui/material";
+import { styled, Card, Typography, CardHeader } from "@mui/material";
 
 export const StyledCard = styled(Card)({
   width: "200px",
