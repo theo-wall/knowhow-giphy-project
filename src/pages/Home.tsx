@@ -14,7 +14,11 @@ const Home = () => {
 
   return (
     <>
-      <Header handleSearch={handleSearch} handleRandomize={handleRandomize} />
+      <Header
+        handleSearch={handleSearch}
+        handleRandomize={handleRandomize}
+        searchTerms={searchTerms}
+      />
       <GifDisplay
         inFavorites={false}
         searchTerms={searchTerms}
