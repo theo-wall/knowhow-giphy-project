@@ -1,12 +1,20 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { StyledHeader, StyledGridItem, StyledBox } from "./Header.styles";
+import { Button, Grid, Typography } from "@mui/material";
+import {
+  StyledHeader,
+  StyledGridItem,
+  StyledBox,
+  ColorButton,
+} from "./Header.styles";
+import UndoIcon from "@mui/icons-material/Undo";
 const FavoritesHeader = () => {
   return (
     <StyledHeader>
       <Grid container spacing={2}>
         <Grid item xs={2}>
           <StyledBox>
-            <Button href="/">Back</Button>
+            <ColorButton href="/" variant="outlined" startIcon={<UndoIcon />}>
+              Back
+            </ColorButton>
           </StyledBox>
         </Grid>
         <StyledGridItem item xs={8}>

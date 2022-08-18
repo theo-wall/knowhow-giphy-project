@@ -70,7 +70,7 @@ const GifCard = ({ item, handleFavorite, user, inFavorites }: CardProps) => {
       </StyledCard>
       <Box>
         <StyledTypo variant="subtitle2">{item.title}</StyledTypo>
-        <StyledTypo variant="subtitle2">
+        <StyledTypo variant="caption">
           {item?.userName ? item?.userName : "no username"}
         </StyledTypo>
       </Box>

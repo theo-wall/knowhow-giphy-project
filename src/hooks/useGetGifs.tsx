@@ -19,32 +19,63 @@ export const useGetGifs = ({
     }: {
       searchTerms: string | undefined;
     }) => {
-      if (!searchTerms) {
+      if (!searchTerms && !user.randView) {
         const response = await axios.get(
           `https://api.giphy.com/v1/gifs/trending?api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&limit=${user.limit}&rating=g&offset=${user.offset}`
         );
+
         if (response.status === 200) {
           console.log("response.data", response.data);
-          const gifResponse = response.data.data.map((item: Favorites) => ({
-            image_url: item.images.original.url,
-            site_url: item.url,
-            title: item.title,
-            userName: item.username,
-          }));
+          const gifResponse = response.data.data.map(
+            (item: {
+              images: { original: { url: string } };
+              url: string;
+              title: string;
+              username: string;
+            }) => ({
+              image_url: item.images.original.url,
+              site_url: item.url,
+              title: item.title,
+              userName: item.username,
+            })
+          );
 
           setGifs(gifResponse);
         }
+      } else if (!searchTerms && user.randView) {
+        const randomGifArray: Favorites[] = [];
+        for (let i = 0; i < user.limit; i++) {
+          const response = await axios.get(
+            `https://api.giphy.com/v1/gifs/random?api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g`
+          );
+          if (response.status === 200) {
+            randomGifArray.push({
+              image_url: response.data.data.images.original.url,
+              site_url: response.data.data.url,
+              title: response.data.data.title,
+              userName: response.data.data.username,
+            });
+          }
+        }
+        setGifs(randomGifArray);
       } else if (searchTerms) {
         const response = await axios.get(
           `https://api.giphy.com/v1/gifs/search?limit=${user.limit}&api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&q=${searchTerms}`
         );
         if (response.status === 200) {
-          const gifResponse = response.data.data.map((item: Favorites) => ({
-            image_url: item.images.original.url,
-            site_url: item.url,
-            title: item.title,
-            userName: item.username,
-          }));
+          const gifResponse: Favorites[] = response.data.data.map(
+            (item: {
+              images: { original: { url: string } };
+              url: string;
+              title: string;
+              username: string;
+            }) => ({
+              image_url: item.images.original.url,
+              site_url: item.url,
+              title: item.title,
+              userName: item.username,
+            })
+          );
           setGifs(gifResponse);
         }
       }

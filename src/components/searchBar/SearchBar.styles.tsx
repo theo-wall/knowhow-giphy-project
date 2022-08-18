@@ -9,6 +9,12 @@ export const StyledSearchIcon = styled(SearchIcon)({
 export const StyledButton = styled(Button)({
   height: "56px",
   borderRadius: 15,
+  color: "black",
+  border: "1px solid black",
+  "&:hover": {
+    backgroundColor: "lightGray",
+    border: "1px solid black",
+  },
 });
 
 export const StyledTextField = styled(TextField)({
