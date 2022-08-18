@@ -83,15 +83,18 @@ const GifDisplay = ({
           </Grid>
         )}
         <MoreButtonBox>
-          {inFavorites || (
-            <MoreButton
-              onClick={() => {
-                handlePage();
-              }}
-            >
-              More
-            </MoreButton>
-          )}
+          <>
+            {" "}
+            {inFavorites || (
+              <MoreButton
+                onClick={() => {
+                  handlePage();
+                }}
+              >
+                More
+              </MoreButton>
+            )}
+          </>
         </MoreButtonBox>
       </StyledBox>
     </ContainerBox>

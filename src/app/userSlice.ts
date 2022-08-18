@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type Favorites = {
-  // url: any;
-  // username: any;
-  // images: any;
   image_url: string;
   site_url: string;
   title: string;
@@ -20,7 +17,7 @@ export interface RootProps {
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    favorites: new Array(),
+    favorites: new Array(0).fill(null),
     randView: false,
     limit: 12,
     offSet: 0,

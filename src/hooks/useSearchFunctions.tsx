@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { actions, RootProps } from "../app/userSlice";
 
+// all states, handlers, and logic for controlling the search bar are stored here. Things that I wanted to stored locally are dispatched here
+// and things I wanted to remain in state until the page was refreshed were handled with useState.
+
 export type SearchProps = {
   inFavorites: boolean;
   handleSearch: (searchTerms: string) => void;

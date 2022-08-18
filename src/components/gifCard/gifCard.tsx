@@ -5,6 +5,9 @@ import { StyledCard, StyledCardHeader, StyledTypo } from "./GifCard.style";
 import { useEffect, useState } from "react";
 import { Favorites, RootProps } from "../../app/userSlice";
 
+// GifCard component displays the individual cards for the gifs returned in the gif array from useGetGif. This is also where the favorite hearts
+// logic is connected to display the favorite icon and dispatch them to local storage to be displayed on the favorites page
+
 export type CardProps = {
   item: Favorites;
   inFavorites?: boolean;

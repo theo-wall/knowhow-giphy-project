@@ -3,14 +3,7 @@ import FavoritesHeader from "../components/header/FavoritesHeader";
 import { useSearchFunctions } from "../hooks/useSearchFunctions";
 
 const Favorites = () => {
-  const {
-    searchTerms,
-    randomize,
-    page,
-    handleSearch,
-    handleRandomize,
-    handlePage,
-  } = useSearchFunctions();
+  const { handlePage } = useSearchFunctions();
   return (
     <>
       <FavoritesHeader />
