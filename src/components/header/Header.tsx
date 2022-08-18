@@ -2,10 +2,19 @@ import { StyledHeader } from "./Header.styles";
 import SearchBar from "../searchBar/SearchBar";
 import { SearchProps } from "../../pages/Home";
 
-const Header = ({ handleSearch }: SearchProps) => {
+const Header = ({
+  handleSearch,
+  handleRandomize,
+}: {
+  handleSearch: (searchTerms: string) => void;
+  handleRandomize: () => void;
+}) => {
   return (
     <StyledHeader>
-      <SearchBar handleSearch={handleSearch} />
+      <SearchBar
+        handleSearch={handleSearch}
+        handleRandomize={handleRandomize}
+      />
     </StyledHeader>
   );
 };

@@ -2,15 +2,18 @@ import { StyledButton, StyledTextField } from "./SearchBar.styles";
 import { InputAdornment, Box, Stack, Link } from "@mui/material";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { useAppDispatch } from "../../app/hooks";
-import { actions } from "../../app/userSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { actions, RootProps } from "../../app/userSlice";
 
 const SearchBar = ({
   handleSearch,
+  handleRandomize,
 }: {
   handleSearch: (searchTerms: string) => void;
+  handleRandomize: () => void;
 }) => {
   const dispatch = useAppDispatch();
+  const user: RootProps = useAppSelector((state) => state);
   const [searchInput, setSearchInput] = useState<string>("");
   return (
     <>
@@ -65,10 +68,10 @@ const SearchBar = ({
             variant="body1"
             color="inherit"
             onClick={() => {
-              dispatch(actions.toggleGifView());
+              handleRandomize();
             }}
           >
-            Randomize GIFs
+            {user.randView ? "Back To Trending" : "Randomize GIFs"}
           </Link>
         </Box>
       </Stack>

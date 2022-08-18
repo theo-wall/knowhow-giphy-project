@@ -6,9 +6,11 @@ import { useAppSelector } from "../app/hooks";
 export const useGetGifs = ({
   inFavorites,
   searchTerms,
+  randomize,
 }: {
   inFavorites: boolean;
   searchTerms?: string;
+  randomize: boolean;
 }) => {
   const [gifs, setGifs] = useState<Favorites[]>();
   const user: RootProps = useAppSelector((state) => state);
@@ -84,7 +86,7 @@ export const useGetGifs = ({
     if (!inFavorites) {
       getGifs({ searchTerms });
     }
-  }, [searchTerms]);
+  }, [searchTerms, randomize]);
 
   return { gifs };
 };

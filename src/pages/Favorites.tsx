@@ -5,7 +5,7 @@ const Favorites = () => {
   return (
     <>
       <FavoritesHeader />
-      <GifDisplay inFavorites={true} />
+      <GifDisplay inFavorites={true} randomize={false} />
     </>
   );
 };

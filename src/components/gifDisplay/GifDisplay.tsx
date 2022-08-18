@@ -8,14 +8,16 @@ import GifCard from "../gifCard/GifCard";
 const GifDisplay = ({
   inFavorites,
   searchTerms,
+  randomize,
 }: {
   inFavorites: boolean;
   searchTerms?: string;
+  randomize: boolean;
 }) => {
   const user: RootProps = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const { gifs } = useGetGifs({ inFavorites, searchTerms });
+  const { gifs } = useGetGifs({ inFavorites, searchTerms, randomize });
   console.log("user", user);
 
   const handleFavorite = (favItem: Favorites) => {
