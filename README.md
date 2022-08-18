@@ -1,6 +1,6 @@
 # KnowHow Giphy Project
 
-This is a quick project to be able to display, search, and save GIFs using the Giphy API, React, MUI, Redux, and Redux-Persist.
+This is a quick project to be able to display, search, and save GIFs using the Giphy API, Typscript, React, MUI, Redux, and Redux-Persist.
 
 ## How to Install
 
