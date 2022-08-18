@@ -11,6 +11,7 @@ const Home = () => {
     handleRandomize,
     handlePage,
   } = useSearchFunctions();
+
   return (
     <>
       <Header handleSearch={handleSearch} handleRandomize={handleRandomize} />

@@ -46,6 +46,7 @@ const GifDisplay = ({
       dispatch(actions.addFavorite(favItem));
     }
   };
+
   return (
     <ContainerBox>
       <StyledBox>
