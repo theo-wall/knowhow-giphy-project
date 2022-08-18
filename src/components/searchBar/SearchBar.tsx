@@ -1,4 +1,4 @@
-import { StyledButton, StyledTextField } from "./SearchBar.styles";
+import { LinkBox, StyledButton, StyledTextField } from "./SearchBar.styles";
 import { InputAdornment, Box, Stack, Link } from "@mui/material";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
@@ -47,7 +47,7 @@ const SearchBar = ({
             Search For GIFs
           </StyledButton>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <LinkBox>
           <Link
             href="/Favorites"
             variant="body1"
@@ -61,8 +61,8 @@ const SearchBar = ({
           >
             My Saved GIFs
           </Link>
-        </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        </LinkBox>
+        <LinkBox>
           <Link
             component="button"
             variant="body1"
@@ -73,7 +73,7 @@ const SearchBar = ({
           >
             {user.randView ? "Back To Trending" : "Randomize GIFs"}
           </Link>
-        </Box>
+        </LinkBox>
       </Stack>
     </>
   );

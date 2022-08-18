@@ -4,7 +4,13 @@ import { actions, Favorites } from "../../app/userSlice";
 import { RootProps } from "../../app/userSlice";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import GifCard from "../gifCard/GifCard";
-import { ContainerBox, LoadingBox, StyledBox } from "./GifDisplay.style";
+import {
+  ContainerBox,
+  LoadingBox,
+  MoreButton,
+  MoreButtonBox,
+  StyledBox,
+} from "./GifDisplay.style";
 
 const GifDisplay = ({
   inFavorites,
@@ -90,32 +96,17 @@ const GifDisplay = ({
                 })}
           </Grid>
         )}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            m: 1,
-          }}
-        >
+        <MoreButtonBox>
           {inFavorites || (
-            <Button
+            <MoreButton
               onClick={() => {
                 handlePage();
               }}
-              sx={{
-                color: "black",
-                border: "1px solid black",
-                "&:hover": {
-                  backgroundColor: "lightGray",
-                  border: "1px solid black",
-                },
-              }}
             >
               More
-            </Button>
+            </MoreButton>
           )}
-        </Box>
+        </MoreButtonBox>
       </StyledBox>
     </ContainerBox>
   );

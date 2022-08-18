@@ -1,4 +1,4 @@
-import { styled, Box } from "@mui/material";
+import { styled, Box, Button } from "@mui/material";
 
 export const ContainerBox = styled(Box)({
   display: "flex",
@@ -17,4 +17,20 @@ export const LoadingBox = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   height: "80vh",
+});
+
+export const MoreButtonBox = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  margin: 10,
+});
+
+export const MoreButton = styled(Button)({
+  color: "black",
+  border: "1px solid black",
+  "&:hover": {
+    backgroundColor: "lightGray",
+    border: "1px solid black",
+  },
 });
