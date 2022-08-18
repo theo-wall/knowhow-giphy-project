@@ -2,7 +2,6 @@ import { LinkBox, StyledButton, StyledTextField } from "./SearchBar.styles";
 import { InputAdornment, Box, Stack, Link } from "@mui/material";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { useSearchFunctions } from "../../hooks/useSearchFunctions";
 import { useAppSelector } from "../../app/hooks";
 import { RootProps } from "../../app/userSlice";
 
