@@ -2,7 +2,7 @@ import { useGetGifs } from "../../hooks/useGetGifs";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { actions, Favorites } from "../../app/userSlice";
 import { RootProps } from "../../app/userSlice";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import GifCard from "../gifCard/GifCard";
 import { ContainerBox, LoadingBox, StyledBox } from "./GifDisplay.style";
 
@@ -10,15 +10,24 @@ const GifDisplay = ({
   inFavorites,
   searchTerms,
   randomize,
+  handlePage,
+  page,
 }: {
   inFavorites: boolean;
   searchTerms?: string;
   randomize: boolean;
+  handlePage: () => void;
+  page: number;
 }) => {
   const user: RootProps = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const { gifs, loading } = useGetGifs({ inFavorites, searchTerms, randomize });
+  const { gifs, loading } = useGetGifs({
+    inFavorites,
+    searchTerms,
+    randomize,
+    page,
+  });
   console.log("user", user);
 
   const handleFavorite = (favItem: Favorites) => {
@@ -81,6 +90,30 @@ const GifDisplay = ({
                 })}
           </Grid>
         )}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            m: 1,
+          }}
+        >
+          <Button
+            onClick={() => {
+              handlePage();
+            }}
+            sx={{
+              color: "black",
+              border: "1px solid black",
+              "&:hover": {
+                backgroundColor: "lightGray",
+                border: "1px solid black",
+              },
+            }}
+          >
+            More
+          </Button>
+        </Box>
       </StyledBox>
     </ContainerBox>
   );

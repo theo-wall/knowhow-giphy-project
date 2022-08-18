@@ -7,10 +7,12 @@ export const useGetGifs = ({
   inFavorites,
   searchTerms,
   randomize,
+  page,
 }: {
   inFavorites: boolean;
   searchTerms?: string;
   randomize: boolean;
+  page: number;
 }) => {
   const [gifs, setGifs] = useState<Favorites[]>();
   const [loading, setLoading] = useState(false);
@@ -25,7 +27,9 @@ export const useGetGifs = ({
       setLoading(true);
       if (!searchTerms && !user.randView) {
         const response = await axios.get(
-          `https://api.giphy.com/v1/gifs/trending?api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&limit=${user.limit}&rating=g&offset=${user.offset}`
+          `https://api.giphy.com/v1/gifs/trending?api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&limit=${
+            user.limit
+          }&rating=g&offset=${user.limit * page}`
         );
 
         if (response.status === 200) {
@@ -64,7 +68,11 @@ export const useGetGifs = ({
         setGifs(randomGifArray);
       } else if (searchTerms) {
         const response = await axios.get(
-          `https://api.giphy.com/v1/gifs/search?limit=${user.limit}&api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&q=${searchTerms}`
+          `https://api.giphy.com/v1/gifs/search?limit=${
+            user.limit
+          }&api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&q=${searchTerms}&offset=${
+            user.limit * page
+          }`
         );
         if (response.status === 200) {
           const gifResponse: Favorites[] = response.data.data.map(
@@ -89,7 +97,7 @@ export const useGetGifs = ({
     if (!inFavorites) {
       getGifs({ searchTerms });
     }
-  }, [searchTerms, randomize]);
+  }, [searchTerms, randomize, page]);
 
   return { gifs, loading };
 };

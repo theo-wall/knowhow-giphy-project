@@ -2,8 +2,8 @@ import { StyledButton, StyledTextField } from "./SearchBar.styles";
 import { InputAdornment, Box, Stack, Link } from "@mui/material";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { actions, RootProps } from "../../app/userSlice";
+import { useAppSelector } from "../../app/hooks";
+import { RootProps } from "../../app/userSlice";
 
 const SearchBar = ({
   handleSearch,
@@ -12,7 +12,6 @@ const SearchBar = ({
   handleSearch: (searchTerms: string) => void;
   handleRandomize: () => void;
 }) => {
-  const dispatch = useAppDispatch();
   const user: RootProps = useAppSelector((state) => state);
   const [searchInput, setSearchInput] = useState<string>("");
   return (
@@ -21,6 +20,7 @@ const SearchBar = ({
         <StyledTextField
           id="input-for-search"
           placeholder="Search GIFs"
+          value={searchInput}
           onKeyDown={(e) => {
             if (e.key === "Enter" && searchInput) {
               handleSearch(searchInput);

@@ -14,6 +14,7 @@ const Home = () => {
   const user: RootProps = useAppSelector((state) => state);
   const [searchTerms, setSearchTerms] = useState("");
   const [randomize, setRandomize] = useState(user.randView);
+  const [page, setPage] = useState(0);
 
   const handleSearch = (searchTerms: string) => {
     setSearchTerms(searchTerms);
@@ -22,18 +23,19 @@ const Home = () => {
     setRandomize(!randomize);
     dispatch(actions.toggleGifView());
   };
+  const handlePage = () => {
+    setPage(page + 1);
+  };
 
   return (
     <>
-      <Header
-        // inFavorites={false}
-        handleSearch={handleSearch}
-        handleRandomize={handleRandomize}
-      />
+      <Header handleSearch={handleSearch} handleRandomize={handleRandomize} />
       <GifDisplay
         inFavorites={false}
         searchTerms={searchTerms}
         randomize={randomize}
+        handlePage={handlePage}
+        page={page}
       />
     </>
   );
