@@ -2,9 +2,9 @@ import { useGetGifs } from "../../hooks/useGetGifs";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { actions, Favorites } from "../../app/userSlice";
 import { RootProps } from "../../app/userSlice";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import GifCard from "../gifCard/GifCard";
-import { ContainerBox, StyledBox } from "./GifDisplay.style";
+import { ContainerBox, LoadingBox, StyledBox } from "./GifDisplay.style";
 
 const GifDisplay = ({
   inFavorites,
@@ -18,7 +18,7 @@ const GifDisplay = ({
   const user: RootProps = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const { gifs } = useGetGifs({ inFavorites, searchTerms, randomize });
+  const { gifs, loading } = useGetGifs({ inFavorites, searchTerms, randomize });
   console.log("user", user);
 
   const handleFavorite = (favItem: Favorites) => {
@@ -38,40 +38,49 @@ const GifDisplay = ({
       dispatch(actions.addFavorite(favItem));
     }
   };
-
   return (
     <ContainerBox>
       <StyledBox>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={3}
-        >
-          {inFavorites
-            ? user.favorites.map((item, index) => {
-                return (
-                  <GifCard
-                    item={item}
-                    key={index}
-                    inFavorites={inFavorites}
-                    handleFavorite={handleFavorite}
-                    user={user}
-                  />
-                );
-              })
-            : gifs?.map((item, index) => {
-                return (
-                  <GifCard
-                    item={item}
-                    key={index}
-                    handleFavorite={handleFavorite}
-                    user={user}
-                  />
-                );
-              })}
-        </Grid>
+        {loading ? (
+          <LoadingBox>
+            <Box>
+              <Typography variant="h3">
+                {randomize ? "Randomizing..." : "Loading..."}
+              </Typography>
+            </Box>
+          </LoadingBox>
+        ) : (
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={3}
+          >
+            {inFavorites
+              ? user.favorites.map((item, index) => {
+                  return (
+                    <GifCard
+                      item={item}
+                      key={index}
+                      inFavorites={inFavorites}
+                      handleFavorite={handleFavorite}
+                      user={user}
+                    />
+                  );
+                })
+              : gifs?.map((item, index) => {
+                  return (
+                    <GifCard
+                      item={item}
+                      key={index}
+                      handleFavorite={handleFavorite}
+                      user={user}
+                    />
+                  );
+                })}
+          </Grid>
+        )}
       </StyledBox>
     </ContainerBox>
   );

@@ -13,6 +13,7 @@ export const useGetGifs = ({
   randomize: boolean;
 }) => {
   const [gifs, setGifs] = useState<Favorites[]>();
+  const [loading, setLoading] = useState(false);
   const user: RootProps = useAppSelector((state) => state);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export const useGetGifs = ({
     }: {
       searchTerms: string | undefined;
     }) => {
+      setLoading(true);
       if (!searchTerms && !user.randView) {
         const response = await axios.get(
           `https://api.giphy.com/v1/gifs/trending?api_key=WnTEYVz8yJSXIH1ZF4mLgRF33Ey4oC1g&limit=${user.limit}&rating=g&offset=${user.offset}`
@@ -81,6 +83,7 @@ export const useGetGifs = ({
           setGifs(gifResponse);
         }
       }
+      setLoading(false);
     };
 
     if (!inFavorites) {
@@ -88,5 +91,5 @@ export const useGetGifs = ({
     }
   }, [searchTerms, randomize]);
 
-  return { gifs };
+  return { gifs, loading };
 };
