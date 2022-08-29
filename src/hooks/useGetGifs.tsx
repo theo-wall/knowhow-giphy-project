@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  baseRandomURL,
+  baseTrendingURL,
+  baseSearchURL,
+} from "../api/GiphyBaseUrl";
+import { useGetTrending } from "../api/useGetTrending";
 import { Favorites, RootProps } from "../app/userSlice";
 import { useAppSelector } from "../app/hooks";
 
@@ -12,6 +18,13 @@ import { useAppSelector } from "../app/hooks";
 
 // normally I would have most of this logic in the back end and use and .env for the API key but for the front end project I did not so it could be cloned
 // and run immediately
+
+type GiphyResponseType = {
+  images: { original: { url: string } };
+  url: string;
+  title: string;
+  username: string;
+};
 
 export const useGetGifs = ({
   inFavorites,
@@ -27,6 +40,7 @@ export const useGetGifs = ({
   const [gifs, setGifs] = useState<Favorites[]>();
   const [loading, setLoading] = useState(false);
   const user: RootProps = useAppSelector((state) => state);
+  const trendingGifResponse = useGetTrending(page);
 
   useEffect(() => {
     const getGifs = async ({
@@ -36,35 +50,12 @@ export const useGetGifs = ({
     }) => {
       setLoading(true);
       if (!searchTerms && !user.randView) {
-        const response = await axios.get(
-          `https://api.giphy.com/v1/gifs/trending?api_key=${
-            process.env.REACT_APP_GIPHY_API_KEY
-          }&limit=${user.limit}&rating=g&offset=${user.limit * page}`
-        );
-
-        if (response.status === 200) {
-          const gifResponse = response.data.data.map(
-            (item: {
-              images: { original: { url: string } };
-              url: string;
-              title: string;
-              username: string;
-            }) => ({
-              image_url: item.images.original.url,
-              site_url: item.url,
-              title: item.title,
-              userName: item.username,
-            })
-          );
-
-          setGifs(gifResponse);
-        }
+        const response = await trendingGifResponse;
+        setGifs(response.gifResponse);
       } else if (!searchTerms && user.randView) {
         const randomGifArray: Favorites[] = [];
         for (let i = 0; i < user.limit; i++) {
-          const response = await axios.get(
-            `https://api.giphy.com/v1/gifs/random?api_key=${process.env.REACT_APP_GIPHY_API_KEY}`
-          );
+          const response = await axios.get(baseRandomURL);
           if (response.status === 200) {
             randomGifArray.push({
               image_url: response.data.data.images.original.url,
@@ -77,18 +68,13 @@ export const useGetGifs = ({
         setGifs(randomGifArray);
       } else if (searchTerms) {
         const response = await axios.get(
-          `https://api.giphy.com/v1/gifs/search?limit=${user.limit}&api_key=${
-            process.env.REACT_APP_GIPHY_API_KEY
-          }&q=${searchTerms}&offset=${user.limit * page}`
+          `${baseSearchURL}&limit=${user.limit}&q=${searchTerms}&offset=${
+            user.limit * page
+          }`
         );
         if (response.status === 200) {
           const gifResponse: Favorites[] = response.data.data.map(
-            (item: {
-              images: { original: { url: string } };
-              url: string;
-              title: string;
-              username: string;
-            }) => ({
+            (item: GiphyResponseType) => ({
               image_url: item.images.original.url,
               site_url: item.url,
               title: item.title,
