@@ -40,7 +40,7 @@ export const useGetGifs = ({
   const [gifs, setGifs] = useState<Favorites[]>();
   const [loading, setLoading] = useState(false);
   const user: RootProps = useAppSelector((state) => state);
-  const trendingGifResponse = useGetTrending(page);
+  const trendingGifs = useGetTrending(page);
 
   useEffect(() => {
     const getGifs = async ({
@@ -50,7 +50,7 @@ export const useGetGifs = ({
     }) => {
       setLoading(true);
       if (!searchTerms && !user.randView) {
-        const response = await trendingGifResponse;
+        const response = await trendingGifs;
         setGifs(response.gifResponse);
       } else if (!searchTerms && user.randView) {
         const randomGifArray: Favorites[] = [];
