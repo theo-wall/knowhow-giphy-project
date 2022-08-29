@@ -8,6 +8,7 @@ import {
 import { useGetTrending } from "../api/useGetTrending";
 import { Favorites, RootProps } from "../app/userSlice";
 import { useAppSelector } from "../app/hooks";
+import { useGetRandom } from "../api/useGetRandom";
 
 // getGifs is a custom hook to supply all gif arrays to return an array of desired gifs to display.
 
@@ -41,6 +42,7 @@ export const useGetGifs = ({
   const [loading, setLoading] = useState(false);
   const user: RootProps = useAppSelector((state) => state);
   const trendingGifs = useGetTrending(page);
+  const randomGifs = useGetRandom();
 
   useEffect(() => {
     const getGifs = async ({
@@ -53,19 +55,8 @@ export const useGetGifs = ({
         const response = await trendingGifs;
         setGifs(response.gifResponse);
       } else if (!searchTerms && user.randView) {
-        const randomGifArray: Favorites[] = [];
-        for (let i = 0; i < user.limit; i++) {
-          const response = await axios.get(baseRandomURL);
-          if (response.status === 200) {
-            randomGifArray.push({
-              image_url: response.data.data.images.original.url,
-              site_url: response.data.data.url,
-              title: response.data.data.title,
-              userName: response.data.data.username,
-            });
-          }
-        }
-        setGifs(randomGifArray);
+        const response = await randomGifs;
+        setGifs(response.randomGifArray);
       } else if (searchTerms) {
         const response = await axios.get(
           `${baseSearchURL}&limit=${user.limit}&q=${searchTerms}&offset=${

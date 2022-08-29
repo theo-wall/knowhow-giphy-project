@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { baseRandomURL, baseTrendingURL, baseSearchURL } from "./GiphyBaseUrl";
+import { baseTrendingURL } from "./GiphyBaseUrl";
 import { Favorites, RootProps } from "../app/userSlice";
 import { useAppSelector } from "../app/hooks";
 
