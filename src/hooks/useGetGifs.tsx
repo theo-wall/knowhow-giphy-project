@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import {
-  baseRandomURL,
-  baseTrendingURL,
-  baseSearchURL,
-} from "../api/GiphyBaseUrl";
 import { useGetTrending } from "../api/useGetTrending";
 import { Favorites, RootProps } from "../app/userSlice";
 import { useAppSelector } from "../app/hooks";
 import { useGetRandom } from "../api/useGetRandom";
+import { useGetSearch } from "../api/useGetSearch";
 
 // getGifs is a custom hook to supply all gif arrays to return an array of desired gifs to display.
 
@@ -19,13 +14,6 @@ import { useGetRandom } from "../api/useGetRandom";
 
 // normally I would have most of this logic in the back end and use and .env for the API key but for the front end project I did not so it could be cloned
 // and run immediately
-
-type GiphyResponseType = {
-  images: { original: { url: string } };
-  url: string;
-  title: string;
-  username: string;
-};
 
 export const useGetGifs = ({
   inFavorites,
@@ -43,6 +31,7 @@ export const useGetGifs = ({
   const user: RootProps = useAppSelector((state) => state);
   const trendingGifs = useGetTrending(page);
   const randomGifs = useGetRandom();
+  const searchGifs = useGetSearch(page, searchTerms);
 
   useEffect(() => {
     const getGifs = async ({
@@ -58,22 +47,8 @@ export const useGetGifs = ({
         const response = await randomGifs;
         setGifs(response.randomGifArray);
       } else if (searchTerms) {
-        const response = await axios.get(
-          `${baseSearchURL}&limit=${user.limit}&q=${searchTerms}&offset=${
-            user.limit * page
-          }`
-        );
-        if (response.status === 200) {
-          const gifResponse: Favorites[] = response.data.data.map(
-            (item: GiphyResponseType) => ({
-              image_url: item.images.original.url,
-              site_url: item.url,
-              title: item.title,
-              userName: item.username,
-            })
-          );
-          setGifs(gifResponse);
-        }
+        const response = await searchGifs;
+        setGifs(response.gifResponse);
       }
       setLoading(false);
     };
