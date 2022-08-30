@@ -33,6 +33,8 @@ export const useGetGifs = ({
   const randomGifs = useGetRandom();
   const searchGifs = useGetSearch(page, searchTerms);
 
+  // theo if you ever go about setting this up again you dont need a master hook. just set them all up individually :)
+
   useEffect(() => {
     const getGifs = async ({
       searchTerms,
